@@ -47,9 +47,8 @@
       <hr>
       <h3>ORder Summary</h3>
       <hr>
-      {% product_list request.user.customer %}
-      <h5>Items:   2</h5>
-      <h5>Total:   $4</h5>
+      {% product_list items %}
+      {% summary order %}
     </div>
   </div>
 </div>
