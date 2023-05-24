@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class Customer(models.Model):
   user = models.OneToOneField(User,null=True,blank=True,on_delete=models.CASCADE)
   name = models.CharField(max_length=200,null=True)
-  email = models.CharField(max_length=200)
+  email = models.EmailField(max_length=200)
 
   def __str__(self):
     return self.name
@@ -33,6 +33,16 @@ class Order(models.Model):
   date_ordered = models.DateTimeField(auto_now_add=True)
   complete = models.BooleanField(default=False) # หากเป็น False จะเพิ่มสินค้าเข้ามาได้เรื่อยๆ 
   transaction_id = models.CharField(max_length=200,null=True)
+
+  @property
+  def shipping(self):
+    shipping = False
+    orderItems = self.orderitem_set.all()
+    for i in orderItems:
+      if i.product.digital == False:
+        shipping = True
+        
+    return shipping
 
   @property
   def get_cart_total(self):

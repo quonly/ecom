@@ -5,6 +5,7 @@
   <div class="col-lg-6">
     <div class="box-element" id="form-wrapper">
       <form action="" id="form">
+        {% csrf_token %}
         <div id="user-info">
           <div class="form-field">
             <input required class="form-control" type="text" name="name" placeholder="Name..">
@@ -39,17 +40,26 @@
     </div>
     <div class="box-element hidden" id="payment-info">
       <small>Paypal Options</small>
+      <button class="make-payment">Make payment</button>
     </div>
   </div>
   <div class="col-lg-6">
     <div class="box-element">
       <a href="{% url 'cart' %}" class="btn btn-outline-dark">&#x2190; Back to Cart</a>
       <hr>
-      <h3>ORder Summary</h3>
+      <h3>Order Summary</h3>
       <hr>
-      {% product_list items %}
+      <div class="product-group">
+      {% product_list items checkout %}
       {% summary order %}
+      </div>
     </div>
   </div>
 </div>
+<script>
+  const shipping = "{{order.shipping}}"
+  const total = '{{order.get_cart_total|floatformat:2}}'
+  const redirectUri = "{% url 'store' %}"
+</script>
+<script type="module" src="{% static 'js/checkout.js'%}"></script>
 {% endblock content %}

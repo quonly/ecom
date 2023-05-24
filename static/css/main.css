@@ -5,6 +5,29 @@ body{
 h1,h2,h3,h4,h5,h6{
 	color:hsl(0, 0%, 30%);
 }
+.hide{
+	display:none !important;
+}
+#cart-link{
+	position: relative;
+}
+#cart-link:after{
+	content:attr(data-total-items);
+	position:absolute;
+	top:-10px;
+	right:-10px;
+	font-weight: bold;
+	text-decoration: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color:#fff;
+	background-color: red;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	font-size: 14px;
+}
 
 .box-element{
 	box-shadow:hsl(0, 0%, 80%) 0 0 16px;

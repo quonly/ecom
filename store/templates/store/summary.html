@@ -2,8 +2,8 @@
 <table class="table">
   <tr>
     <th><h5>Items:</h5></th>
-    <td><h5> <strong>{{order.get_cart_items}}</strong></h5></td>
+    <td><h5> <strong id="summary-quantity">{{order.get_cart_items}}</strong></h5></td>
     <th><h5>Total:</h5></th>
-    <td><h5><strong>{{order.get_cart_total|floatformat:2|intcomma}}</strong></h5></td>
+    <td><h5><strong id="summary-price">{{order.get_cart_total|floatformat:2|intcomma}}</strong></h5></td>
   </tr>
 </table>

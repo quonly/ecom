@@ -1,16 +1,16 @@
 {% load static humanize %}
   {% for item in items %}
-    <div class="cart-row">
+    <div class="cart-row" data-block-product="{{item.product.id}}">
       <div style="flex:2"><img class="row-image" src="{{item.product.imageUrl}}" alt=""></div>
       <div style="flex:2">{{item.product.name}}</div>
-      <div style="flex:1">{{item.product.price|intcomma}}</div>
-      <div style="flex:1">
-        <p class="quantity">{{item.quantity}}</p>
-        <div class="quantity">
-          <img class="chg-quantity" src="{% static "images/arrow-up.png" %}" alt="">
-          <img class="chg-quantity" src="{% static "images/arrow-down.png" %}" alt="">
+      <div style="flex:1" id="price-{{item.product.id}}" data-price="{{item.product.price}}">{{item.product.price|intcomma}}</div>
+      <div style="flex:1 ">
+        <p class="quantity" data-quantity="{{item.product.id}}" {% if checkout %}style="margin:0;"{%endif%} >{{item.quantity}}</p>
+        <div class="quantity {% if checkout %}hide{%endif%}">
+          <img class="chg-quantity update-cart" data-product="{{item.product.id}}" data-action="add" src="{% static "images/arrow-up.png" %}" alt="">
+          <img class="chg-quantity update-cart" data-product="{{item.product.id}}" data-action="remove" src="{% static "images/arrow-down.png" %}" alt="">
         </div>
       </div>
-      <div style="flex:1">{{item.get_total|intcomma}}</div>
+      <div style="flex:1" data-total="{{item.product.id}}">{{item.get_total|intcomma}}</div>
     </div>
   {% endfor %}
