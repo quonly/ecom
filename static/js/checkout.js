@@ -1,5 +1,6 @@
 import {getToken} from "./csrftoken.js";
-console.log(user);
+
+
 const paymentInfo = document.querySelector('#payment-info')
 if(shipping == 'False'){
   document.getElementById('shipping-info').innerHTML = ''
@@ -75,7 +76,9 @@ function submitFormData(){
   .then(res=>res.json())
   .then(data=>{
     console.log(data);
-    window.location.href = redirectUri
+    console.log('Cart was created!')
+    document.cookie = 'cart='+JSON.stringify({})+";domain=;path=/;SameSite=Strict"
+      window.location.href = redirectUri
   })
   
 }

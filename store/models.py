@@ -32,7 +32,7 @@ class Order(models.Model):
   customer = models.ForeignKey('Customer',on_delete=models.SET_NULL,null=True,blank=True)
   date_ordered = models.DateTimeField(auto_now_add=True)
   complete = models.BooleanField(default=False) # หากเป็น False จะเพิ่มสินค้าเข้ามาได้เรื่อยๆ 
-  transaction_id = models.CharField(max_length=200,null=True)
+  transaction_id = models.CharField(max_length=200,null=True) # null=True หมายความว่าสามารถปล่อยว่างเวลาสร้างได้ แต่เวลาไปเพิ่มข้อมูลในหน้าแอดมินหรือฟอร์มจะต้องใส่ค่าด้วย
 
   @property
   def shipping(self):

@@ -1,6 +1,7 @@
 import {getToken} from "./csrftoken.js";
 import {getCookie} from "./cookie.js"
 
+console.log('cookie',document.cookie);
 // elements
 const cartLink = document.querySelector('#cart-link')
 
@@ -9,7 +10,9 @@ console.log('cart',cart);
 if(!cart){
   cart = {}
   console.log('Cart was created!')
-  document.cookie = 'cart='+JSON.stringify(cart)+";domain=;path=/" // Converts a JavaScript value to a JavaScript Object Notation (JSON) string.
+  document.cookie = 'cart='+JSON.stringify(cart)+";domain=;path=/;SameSite=Strict" // Converts a JavaScript value to a JavaScript Object Notation (JSON) string.
+  console.log('cookie',document.cokie);
+
 }
 // 1. Add event listener to common parent element
 // 2. Determine what element originated the event
@@ -48,16 +51,18 @@ function addCookieItem(productId,action){
     }
   }
   console.log('Cart:',cart);
-  document.cookie = 'cart='+JSON.stringify(cart)+";domain=;path=/"
+  document.cookie = 'cart='+JSON.stringify(cart)+";domain=;path=/;SameSite=Strict"
+  console.log('cookie',document.cookie);
   const items = Object.keys(cart).reduce((value,key)=>value+cart[key].quantity,0)
   cartLink.dataset.totalItems = items
-  const cartTotal = Object.keys(cart).reduce((value,key)=>value+=(cart[key].quantity*(+document.querySelector(`#price-${productId}`).dataset.price)),0)
   cartLink.dataset.totalItems = items
+
   if(document.querySelector('.quantity')){
   document.querySelector(`[data-quantity='${productId}']`).innerText = cart[productId]['quantity']
   document.querySelector(`[data-total='${productId}']`).innerText = (cart[productId]['quantity'] * +document.querySelector(`#price-${productId}`).dataset.price).toLocaleString()
   document.querySelector(`#summary-quantity`).innerText = items
   document.querySelector(`#summary-price`).innerText =cartTotal.toLocaleString(2)
+  const cartTotal = Object.keys(cart).reduce((value,key)=>value+=(cart[key].quantity*(document.querySelector(`#price-${productId}`).dataset.price)),0)
   }
 }
 
